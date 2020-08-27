@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Map, TileLayer, Marker, Popup} from "react-leaflet";
+import {Map, TileLayer, Marker, Popup, Polygon} from "react-leaflet";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
@@ -39,9 +39,19 @@ const Home = () => {
 
     const handleChangeViewPort = () => {
         const bounds = mapRef.current.leafletElement.getBounds();
+        console.log(mapRef.current.leafletElement);
+        const center = bounds.getCenter();
         const data = {
-            topLeft: bounds.getNorthWest(),
-            bottomRight: bounds.getSouthEast(),
+            // f1: bounds.getSouthWest(),
+            // f2: {lat: bounds.getSouth(), lng: center.lng},
+            // f3: bounds.getSouthEast(),
+            // f4: {lat: center.lat, lng: bounds.getEast()},
+            // f5: bounds.getNorthEast(),
+            // f6: {lat: bounds.getNorth(), lng: center.lng},
+            // f7: bounds.getNorthWest(),
+            // f8: {lat: center.lat, lng: bounds.getWest()},
+            topRight: bounds.getNorthEast(),
+            bottomLeft: bounds.getSouthWest(),
             date: mapFilter.date
         };
         dispatch(getFilterMarker(data));
