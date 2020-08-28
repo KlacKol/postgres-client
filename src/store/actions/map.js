@@ -1,4 +1,4 @@
-import {MAP_ERROR, MAP_SUCCESS_GET, MAP_START_LOAD, MAP_END_LOAD} from "./actionTypes";
+import {MAP_ERROR, MAP_SUCCESS_GET, MAP_START_LOAD, MAP_END_LOAD, MAP_CLEAR_MARKER} from "./actionTypes";
 import {createMarker, searchOnDate} from "../../services/MapService";
 import {logoutUser} from "./auth";
 import {history} from "../../helpers/history";
@@ -10,13 +10,21 @@ export function getFilterMarker(parameters) {
         try {
             searchOnDate(parameters)
                 .then(data => {
-                dispatch(mapsSuccessGet(data));
-            })
-                .catch(e =>{
-                    helperError(dispatch, e)
+                    dispatch(mapsSuccessGet(data));
+                })
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(mapError('INTERNAL ERROR'))
+                    }
                 });
         } catch (e) {
-            helperError(dispatch, e)
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(mapError('INTERNAL ERROR'))
+            }
         }
     }
 }
@@ -30,20 +38,33 @@ export function mapCreateMarker(parameters) {
                     dispatch(mapEndLoading());
                     history.push(PATH_HOME);
                 })
-                .catch(e =>{
-                    helperError(dispatch, e)
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(mapError('INTERNAL ERROR'))
+                    }
                 });
         } catch (e) {
-            helperError(dispatch, e)
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(mapError('INTERNAL ERROR'))
+            }
         }
+    }
+}
+
+export function mapClearMarker() {
+    return {
+        type: MAP_CLEAR_MARKER
     }
 }
 
 function helperError(dispatch, e) {
     if (e.response.status === 401) {
         dispatch(logoutUser());
-    }
-    else if (e.response.data.message) {
+    } else if (e.response.data.message) {
         dispatch(mapError(e.response.data.message));
     }
 }

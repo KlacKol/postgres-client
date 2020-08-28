@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Map, TileLayer, Marker, Popup, Polygon} from "react-leaflet";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import {Map, TileLayer, Marker, Popup} from "react-leaflet";
+import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from "@material-ui/core/Button";
-import {getFilterMarker} from '../store/actions/map';
+import {getFilterMarker, mapClearMarker} from '../store/actions/map';
 import {getUserId} from "../services/LocalStorageService";
 import {deleteMarker} from "../services/MapService";
 import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -39,22 +39,18 @@ const Home = () => {
 
     const handleChangeViewPort = () => {
         const bounds = mapRef.current.leafletElement.getBounds();
-        console.log(mapRef.current.leafletElement);
-        const center = bounds.getCenter();
-        const data = {
-            // f1: bounds.getSouthWest(),
-            // f2: {lat: bounds.getSouth(), lng: center.lng},
-            // f3: bounds.getSouthEast(),
-            // f4: {lat: center.lat, lng: bounds.getEast()},
-            // f5: bounds.getNorthEast(),
-            // f6: {lat: bounds.getNorth(), lng: center.lng},
-            // f7: bounds.getNorthWest(),
-            // f8: {lat: center.lat, lng: bounds.getWest()},
-            topRight: bounds.getNorthEast(),
-            bottomLeft: bounds.getSouthWest(),
-            date: mapFilter.date
-        };
-        dispatch(getFilterMarker(data));
+        const zoom = mapRef.current.leafletElement.getZoom();
+        console.log(zoom)
+        if (zoom > 3) {
+            const data = {
+                topRight: bounds.getNorthEast(),
+                bottomLeft: bounds.getSouthWest(),
+                date: mapFilter.date
+            };
+            dispatch(getFilterMarker(data));
+        } else {
+            dispatch(mapClearMarker());
+        }
     };
 
     const handleDeleteMarker = async (id) => {
@@ -64,16 +60,18 @@ const Home = () => {
 
     const handlePlay = () => {
         let i = dateValue[0];
-            function f() {
-                timer = setTimeout(() => {
-                        setDateValue([i, dateValue[1]]);
-                        i++;
-                        if (i < mapFilter.date[1]) {
-                            f();
-                        }
-                }, 10, 0)
-            }
-            f();
+
+        function f() {
+            timer = setTimeout(() => {
+                setDateValue([i, dateValue[1]]);
+                i++;
+                if (i < mapFilter.date[1]) {
+                    f();
+                }
+            }, 10, 0)
+        }
+
+        f();
     };
 
     const handleStop = () => {
@@ -93,7 +91,10 @@ const Home = () => {
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <MarkerClusterGroup>
+                <MarkerClusterGroup
+                    showCoverageOnHover={false}
+                    maxClusterRadius={200}
+                >
                     {data && data.map(marker => (
                         <Marker position={[marker.lat, marker.lng]} key={marker.id + marker.lat}>
                             <Popup>
@@ -141,11 +142,11 @@ const Home = () => {
                     />
                 </div>
                 <Button
-                color="primary"
-                variant="contained"
-                endIcon={<SearchIcon />}
-                onClick={handleSubmit}
-                className="bottom-map-button"
+                    color="primary"
+                    variant="contained"
+                    endIcon={<SearchIcon/>}
+                    onClick={handleSubmit}
+                    className="bottom-map-button"
                 >
                     Search
                 </Button>

@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {NavLink} from 'react-router-dom';
 import {PATH_AUTH_LOGIN} from "../../routeList";
@@ -51,10 +51,10 @@ const SignUp = () => {
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
@@ -74,7 +74,7 @@ const SignUp = () => {
                                 fullWidth
                                 autoComplete="email"
                                 autoFocus
-                                onChange={({ target: {value}}) => emailChangeHandler(value)}
+                                onChange={({target: {value}}) => emailChangeHandler(value)}
                                 validators={['required', 'isEmail']}
                                 errorMessages={['this field is required', 'Email is not valid']}
                             />
@@ -88,7 +88,7 @@ const SignUp = () => {
                                 autoComplete="current-password"
                                 value={password}
                                 fullWidth
-                                onChange={({ target: {value}}) => passwordChangeHandler(value)}
+                                onChange={({target: {value}}) => passwordChangeHandler(value)}
                                 validators={['required', 'minStringLength: 3', 'maxStringLength: 20', 'trim']}
                                 errorMessages={['this field is required', 'minimum 3 character', 'maximum 20 character', 'the field cannot contain spaces']}
                             />
@@ -100,7 +100,7 @@ const SignUp = () => {
                                 variant="outlined"
                                 value={name}
                                 fullWidth
-                                onChange={({ target: {value}}) => nameChangeHandler(value)}
+                                onChange={({target: {value}}) => nameChangeHandler(value)}
                                 validators={['required', 'minStringLength: 3', 'maxStringLength: 20', 'trim']}
                                 errorMessages={['this field is required', 'minimum 3 character', 'maximum 20 character', 'the field cannot contain spaces']}
                             />

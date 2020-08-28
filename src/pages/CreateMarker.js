@@ -3,15 +3,14 @@ import Button from "@material-ui/core/Button";
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {makeStyles} from '@material-ui/core/styles';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import moment from "moment";
 import {generateRandomMarker} from "../services/MapService";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {useDispatch} from "react-redux";
 import {mapCreateMarker} from "../store/actions/map";
 import {getUserId} from "../services/LocalStorageService";
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -58,8 +57,7 @@ const CreateMarker = () => {
     const userId = getUserId();
 
     const handlerSubmit = () => {
-        console.log(userId);
-        const data = {lat,lng,description,date,userId};
+        const data = {lat, lng, description, date, userId};
         dispatch(mapCreateMarker(data));
     };
 
@@ -81,7 +79,7 @@ const CreateMarker = () => {
                     <Button
                         variant="contained"
                         color="secondary"
-                        startIcon={<PlaylistAddIcon />}
+                        startIcon={<PlaylistAddIcon/>}
                         onClick={generateRandomMarker}
                         className={classes.generateButton}
                     >
@@ -105,7 +103,7 @@ const CreateMarker = () => {
                                 name='lat'
                                 InputLabelProps={{shrink: true}}
                                 value={lat}
-                                onChange={({ target: {value}}) => setLat(value)}
+                                onChange={({target: {value}}) => setLat(value)}
                                 validators={['required', 'minNumber:-90', 'maxNumber:90']}
                                 errorMessages={['this field is required', 'minimum -90 ', 'maximum 90 ']}
                             />
@@ -115,18 +113,18 @@ const CreateMarker = () => {
                                 name='lng'
                                 InputLabelProps={{shrink: true}}
                                 value={lng}
-                                onChange={({ target: {value}}) => setLng(value)}
+                                onChange={({target: {value}}) => setLng(value)}
                                 validators={['required', 'minNumber:-180', 'maxNumber:180']}
                                 errorMessages={['this field is required', 'minimum -180 ', 'maximum 180 ']}
                             />
 
                             <TextValidator
-                            label='description'
-                            name='description'
-                            value={description}
-                            onChange={({ target: {value}}) => setDescription(value)}
-                            validators={['required', 'minStringLength:20', 'maxStringLength:100', 'trim']}
-                            errorMessages={['this field is required', 'minimum 20 characters', 'maximum 100 characters', 'the field cannot contain spaces']}
+                                label='description'
+                                name='description'
+                                value={description}
+                                onChange={({target: {value}}) => setDescription(value)}
+                                validators={['required', 'minStringLength:20', 'maxStringLength:100', 'trim']}
+                                errorMessages={['this field is required', 'minimum 20 characters', 'maximum 100 characters', 'the field cannot contain spaces']}
                             />
                             <TextValidator
                                 label='date'
@@ -135,7 +133,7 @@ const CreateMarker = () => {
                                 key='date'
                                 value={date}
                                 InputLabelProps={{shrink: true}}
-                                onChange={({ target: {value}}) => setDate(value)}
+                                onChange={({target: {value}}) => setDate(value)}
                                 validators={['isDate']}
                                 errorMessages={['date cant be more of now']}
                             />
@@ -163,7 +161,7 @@ const CreateMarker = () => {
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {showMarker && <Marker position={showMarker} />}
+                    {showMarker && <Marker position={showMarker}/>}
                 </Map>
             </Grid>
         </Grid>

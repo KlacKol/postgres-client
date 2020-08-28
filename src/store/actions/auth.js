@@ -23,10 +23,20 @@ export function logUser(parameters) {
                     setRefreshToken(data.refreshToken);
                     dispatch(authSuccess(data.token));
                     history.push(PATH_HOME)
-            })
-                .catch(e => helperError(dispatch, e))
+                })
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(userError('INTERNAL ERROR'))
+                    }
+                })
         } catch (e) {
-            helperError(dispatch, e)
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(userError('INTERNAL ERROR'))
+            }
         }
     }
 }
@@ -43,9 +53,19 @@ export function regUser(parameters) {
                     dispatch(authSuccess(data.token));
                     history.push(PATH_HOME)
                 })
-                .catch(e => helperError(dispatch, e))
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(userError('INTERNAL ERROR'))
+                    }
+                })
         } catch (e) {
-            helperError(dispatch, e)
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(userError('INTERNAL ERROR'))
+            }
         }
     }
 }

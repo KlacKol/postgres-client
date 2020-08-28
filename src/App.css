@@ -3,6 +3,11 @@
   height: 80vh;
 }
 
+.liner-loading {
+  width: 100%;
+  padding: 5px;
+}
+
 .makeStyles-content-9 {
   padding: 0 !important;
 }
@@ -16,7 +21,7 @@
 
 .bottom-map-slider {
   width: 90%;
-  padding: 2%;
+  padding: 0 2%;
 }
 
 .bottom-map-button {

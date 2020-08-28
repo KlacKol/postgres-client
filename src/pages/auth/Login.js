@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {PATH_AUTH_REGISTRATION} from "../../routeList";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
@@ -55,10 +55,10 @@ const SignIn = () => {
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
@@ -77,7 +77,7 @@ const SignIn = () => {
                         value={emailOrName}
                         fullWidth
                         className={'large-margin'}
-                        onChange={({ target: {value}}) => emailOrNameChangeHandler(value)}
+                        onChange={({target: {value}}) => emailOrNameChangeHandler(value)}
                         validators={['required', 'minStringLength: 3', 'maxStringLength: 20', 'trim']}
                         errorMessages={['this field is required', 'minimum 3 character', 'maximum 20 character', 'the field cannot contain spaces']}
                     />
@@ -89,7 +89,7 @@ const SignIn = () => {
                         autoComplete="current-password"
                         value={password}
                         fullWidth
-                        onChange={({ target: {value}}) => passwordChangeHandler(value)}
+                        onChange={({target: {value}}) => passwordChangeHandler(value)}
                         validators={['required', 'minStringLength: 3', 'maxStringLength: 20', 'trim']}
                         errorMessages={['this field is required', 'minimum 3 character', 'maximum 20 character', 'the field cannot contain spaces']}
                     />

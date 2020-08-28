@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -7,7 +7,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {
     ListItemIcon, ListItemText, ListItem, IconButton, Divider, Typography, List, Toolbar, AppBar, CssBaseline, Drawer
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -100,7 +100,7 @@ const Layout = ({children}) => {
         <div className={classes.root}>
             {reduxData.user.loggedIn ? (
                 <>
-                    <CssBaseline />
+                    <CssBaseline/>
                     <AppBar
                         position="fixed"
                         className={clsx(classes.appBar, {
@@ -115,7 +115,7 @@ const Layout = ({children}) => {
                                 edge="start"
                                 className={clsx(classes.menuButton, open && classes.hide)}
                             >
-                                <MenuIcon />
+                                <MenuIcon/>
                             </IconButton>
                             <Typography variant="h6" noWrap>
                                 History maps
@@ -133,22 +133,22 @@ const Layout = ({children}) => {
                     >
                         <div className={classes.drawerHeader}>
                             <IconButton onClick={handleDrawerClose}>
-                                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                                {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <List>
                             <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_HOME}>
                                 <ListItemIcon><HomeIcon/></ListItemIcon>
-                                <ListItemText primary="Home" />
+                                <ListItemText primary="Home"/>
                             </ListItem>
                             <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_ADD_MARKER}>
                                 <ListItemIcon><AddIcon/></ListItemIcon>
-                                <ListItemText primary="Add new marker" />
+                                <ListItemText primary="Add new marker"/>
                             </ListItem>
                             <ListItem button onClick={handleLogoutUser}>
                                 <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-                                <ListItemText primary="Logout" />
+                                <ListItemText primary="Logout"/>
                             </ListItem>
                         </List>
                     </Drawer>
@@ -159,7 +159,9 @@ const Layout = ({children}) => {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
+                {reduxData.user.error ? alert(reduxData.user.error) : null}
+                {reduxData.map.error ?  alert(reduxData.map.error) : null}
+                <div className={classes.drawerHeader}/>
                 {children}
             </main>
         </div>
