@@ -22,7 +22,8 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 loggedIn: true,
                 loading: false,
-                user: action.user
+                user: action.user,
+                error: null
             };
         case AUTH_START_LOAD:
             return {

@@ -12,7 +12,8 @@ export default function mapReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                markers: action.markers
+                markers: action.markers,
+                error: null
             };
         case MAP_START_LOAD:
             return {
