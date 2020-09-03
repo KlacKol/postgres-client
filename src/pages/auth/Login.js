@@ -61,7 +61,7 @@ const SignIn = () => {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign Inszaqwec
+                    Sign Iq
                 </Typography>
                 <ValidatorForm
                     className={classes.form}
