@@ -1,9 +1,17 @@
-import {MAP_ERROR, MAP_SUCCESS_GET, MAP_START_LOAD, MAP_END_LOAD, MAP_CLEAR_MARKER} from "../actions/actionTypes";
+import {
+    MAP_ERROR,
+    MAP_SUCCESS_GET,
+    MAP_START_LOAD,
+    MAP_END_LOAD,
+    MAP_CLEAR_MARKER,
+    MAP_CLEAR_ERROR, MAP_ADD_CENTER
+} from "../actions/actionTypes";
 
 const initialState = {
     markers: [],
     loading: false,
     error: null,
+    mapLocation: null
 };
 
 export default function mapReducer(state = initialState, action) {
@@ -12,8 +20,7 @@ export default function mapReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                markers: action.markers,
-                error: null
+                markers: action.markers
             };
         case MAP_START_LOAD:
             return {
@@ -31,10 +38,20 @@ export default function mapReducer(state = initialState, action) {
                 loading: false,
                 error: action.error,
             };
+        case MAP_CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
+            }
         case MAP_CLEAR_MARKER:
             return {
                 ...state,
                 markers: []
+            }
+        case MAP_ADD_CENTER:
+            return {
+                ...state,
+                mapLocation: action.mapLocation
             }
         default:
             return state;

@@ -34,3 +34,18 @@ export const clearUserId = () => {
     localStorage.removeItem('user_id');
 };
 
+export const setIsAdmin = (val) => {
+    localStorage.setItem('is_admin', val);
+};
+
+export const getIsAdmin = () => {
+    const isAdmin =  localStorage.getItem('is_admin');
+    return isAdmin === 'true';
+};
+
+export const clearIsAdmin = () => {
+    localStorage.removeItem('is_admin');
+};
+
+
+

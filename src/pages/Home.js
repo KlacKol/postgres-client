@@ -20,7 +20,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const mapRef = useRef();
     const [dateValue, setDateValue] = useState(mapFilter.date);
-    const data = useSelector(res => res.map.markers.data, shallowEqual);
+    const apiData = useSelector(res => res.map, shallowEqual);
     const storageUserId = getUserId();
 
     useEffect(() => {
@@ -40,7 +40,6 @@ const Home = () => {
     const handleChangeViewPort = () => {
         const bounds = mapRef.current.leafletElement.getBounds();
         const zoom = mapRef.current.leafletElement.getZoom();
-        console.log(zoom)
         if (zoom > 3) {
             const data = {
                 topRight: bounds.getNorthEast(),
@@ -81,7 +80,7 @@ const Home = () => {
     return (
         <>
             <Map
-                center={mapFilter.location}
+                center={apiData.mapLocation || mapFilter.location}
                 zoom={10}
                 tap={true}
                 ref={mapRef}
@@ -95,7 +94,7 @@ const Home = () => {
                     showCoverageOnHover={false}
                     maxClusterRadius={200}
                 >
-                    {data && data.map(marker => (
+                    {apiData.markers.data && apiData.markers.data.map(marker => (
                         <Marker position={[marker.lat, marker.lng]} key={marker.id + marker.lat}>
                             <Popup>
                                 <div className="marker-map">

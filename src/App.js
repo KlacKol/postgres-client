@@ -4,13 +4,15 @@ import 'fontsource-roboto';
 import Home from "./pages/Home";
 import Layout from "./hoc/Layout";
 import {Route, Router, Switch} from "react-router-dom";
-import {PATH_ADD_MARKER, PATH_AUTH_LOGIN, PATH_AUTH_REGISTRATION, PATH_HOME} from "./routeList";
+import {PATH_ADD_MARKER, PATH_ADMIN_PANEL, PATH_AUTH_LOGIN, PATH_AUTH_REGISTRATION, PATH_HOME} from "./routeList";
 import CreateMarker from "./pages/CreateMarker";
 import SignIn from "./pages/auth/Login";
 import SignUp from "./pages/auth/Registration";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./pages/NotFound";
 import {history} from "./helpers/history";
+import AdminPrivateRoute from "./AdminPrivateRoute";
+import AdminPanel from "./pages/AdminPanel";
 
 const App = () => {
     return (
@@ -22,6 +24,7 @@ const App = () => {
                         <Route path={PATH_AUTH_REGISTRATION} component={SignUp}/>
                         <PrivateRoute path={PATH_HOME} component={Home}/>
                         <PrivateRoute path={PATH_ADD_MARKER} component={CreateMarker}/>
+                        <AdminPrivateRoute path={PATH_ADMIN_PANEL} component={AdminPanel}/>
                         <Route path="*" component={NotFound}/>
                     </Switch>
                 </Layout>

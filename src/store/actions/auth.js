@@ -1,9 +1,10 @@
-import {AUTH_ERROR, AUTH_SUCCESS, AUTH_START_LOAD, AUTH_LOGOUT} from "./actionTypes";
+import {AUTH_ERROR, AUTH_SUCCESS, AUTH_START_LOAD, AUTH_LOGOUT, AUTH_CLEAR_ERROR} from "./actionTypes";
 import {deleteRefreshToken, loginUser, registerUser} from "../../services/AuthService";
 import {
+    clearIsAdmin,
     clearRefreshToken,
     clearToken, clearUserId,
-    getToken,
+    getToken, setIsAdmin,
     setRefreshToken,
     setToken,
     setUserId
@@ -18,10 +19,11 @@ export function logUser(parameters) {
             dispatch(userStartLoading());
             loginUser(parameters)
                 .then(({data}) => {
+                    setIsAdmin(data.isAdmin)
                     setUserId(data.userId);
                     setToken(data.token);
                     setRefreshToken(data.refreshToken);
-                    dispatch(authSuccess(data.token));
+                    dispatch(authSuccess(data.token, data.isAdmin));
                     history.push(PATH_HOME)
                 })
                 .catch(e => {
@@ -47,10 +49,11 @@ export function regUser(parameters) {
             dispatch(userStartLoading());
             registerUser(parameters)
                 .then(({data}) => {
+                    setIsAdmin(data.isAdmin)
                     setUserId(data.userId);
                     setToken(data.token);
                     setRefreshToken(data.refreshToken);
-                    dispatch(authSuccess(data.token));
+                    dispatch(authSuccess(data.token, data.isAdmin));
                     history.push(PATH_HOME)
                 })
                 .catch(e => {
@@ -77,6 +80,7 @@ export function logoutUser() {
             const {userId} = jwtDecode(token);
             deleteRefreshToken(userId)
                 .then(() => {
+                    clearIsAdmin();
                     clearUserId();
                     clearToken();
                     clearRefreshToken();
@@ -87,6 +91,12 @@ export function logoutUser() {
         } catch (e) {
             helperError(dispatch, e)
         }
+    }
+}
+
+export function authClearError() {
+    return {
+        type: AUTH_CLEAR_ERROR
     }
 }
 
@@ -102,10 +112,11 @@ function logout() {
     }
 }
 
-function authSuccess(user) {
+function authSuccess(user, isAdmin) {
     return {
         type: AUTH_SUCCESS,
         user,
+        isAdmin
     };
 }
 

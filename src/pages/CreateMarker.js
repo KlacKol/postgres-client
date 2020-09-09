@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import Button from "@material-ui/core/Button";
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import Grid from '@material-ui/core/Grid';
@@ -54,11 +54,13 @@ const CreateMarker = () => {
     const [lng, setLng] = useState(0);
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const dispatch = useDispatch();
+    const mapRef = useRef();
     const userId = getUserId();
 
     const handlerSubmit = () => {
         const data = {lat, lng, description, date, userId};
-        dispatch(mapCreateMarker(data));
+        const centerMap = mapRef.current.leafletElement.getCenter();
+        dispatch(mapCreateMarker(data, centerMap));
     };
 
     const addMarker = (e) => {
@@ -156,6 +158,7 @@ const CreateMarker = () => {
                     center={[50.0042617, 36.2034271]}
                     zoom={10}
                     onClick={addMarker}
+                    ref={mapRef}
                 >
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

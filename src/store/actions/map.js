@@ -1,4 +1,11 @@
-import {MAP_ERROR, MAP_SUCCESS_GET, MAP_START_LOAD, MAP_END_LOAD, MAP_CLEAR_MARKER} from "./actionTypes";
+import {
+    MAP_ERROR,
+    MAP_SUCCESS_GET,
+    MAP_START_LOAD,
+    MAP_END_LOAD,
+    MAP_CLEAR_MARKER,
+    MAP_CLEAR_ERROR, MAP_ADD_CENTER
+} from "./actionTypes";
 import {createMarker, searchOnDate} from "../../services/MapService";
 import {logoutUser} from "./auth";
 import {history} from "../../helpers/history";
@@ -29,13 +36,14 @@ export function getFilterMarker(parameters) {
     }
 }
 
-export function mapCreateMarker(parameters) {
+export function mapCreateMarker(parameters, centerMap) {
     return (dispatch) => {
         dispatch(mapStartLoading());
         try {
             createMarker(parameters)
                 .then(_ => {
                     dispatch(mapEndLoading());
+                    dispatch(addHomeCenterMapAfterCreate(centerMap))
                     history.push(PATH_HOME);
                 })
                 .catch(e => {
@@ -58,6 +66,19 @@ export function mapCreateMarker(parameters) {
 export function mapClearMarker() {
     return {
         type: MAP_CLEAR_MARKER
+    }
+}
+
+export function mapClearError() {
+    return {
+        type: MAP_CLEAR_ERROR
+    }
+}
+
+function addHomeCenterMapAfterCreate(mapLocation) {
+    return {
+        type: MAP_ADD_CENTER,
+        mapLocation
     }
 }
 

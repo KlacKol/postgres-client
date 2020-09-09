@@ -1,11 +1,13 @@
-import {AUTH_SUCCESS, AUTH_ERROR, AUTH_START_LOAD, AUTH_LOGOUT} from "../actions/actionTypes";
-import {getToken} from "../../services/LocalStorageService";
+import {AUTH_SUCCESS, AUTH_ERROR, AUTH_START_LOAD, AUTH_LOGOUT, AUTH_CLEAR_ERROR} from "../actions/actionTypes";
+import {getIsAdmin, getToken} from "../../services/LocalStorageService";
 
 
 let user = getToken();
+let isAdmin = getIsAdmin();
 const initialState = user ? {
     loggedIn: true,
     user,
+    isAdmin,
     loading: false,
     error: null
 } : {
@@ -23,7 +25,7 @@ export default function userReducer(state = initialState, action) {
                 loggedIn: true,
                 loading: false,
                 user: action.user,
-                error: null
+                isAdmin: action.isAdmin
             };
         case AUTH_START_LOAD:
             return {
@@ -36,11 +38,17 @@ export default function userReducer(state = initialState, action) {
                 loading: false,
                 error: action.error,
             };
+        case AUTH_CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
+            }
         case AUTH_LOGOUT:
             return {
                 ...state,
                 loggedIn: false,
-                user: {}
+                user: {},
+                isAdmin: null
             };
         default:
             return state;

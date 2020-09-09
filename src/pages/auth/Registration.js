@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import {Avatar, Button, Grid, Typography, Container, FormControlLabel, Checkbox} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import {makeStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import {NavLink} from 'react-router-dom';
 import {PATH_AUTH_LOGIN} from "../../routeList";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
@@ -40,12 +38,14 @@ const SignUp = () => {
     const [name, nameChangeHandler] = useState('');
     const [email, emailChangeHandler] = useState('');
     const [password, passwordChangeHandler] = useState('');
+    const [isAdmin, isAdminChangeHandler] = useState(false);
     const dispatch = useDispatch();
 
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        const result = {name, email, password};
+        console.log(isAdmin)
+        const result = {name, email, password, isAdmin};
         dispatch(regUser(result));
     };
 
@@ -103,6 +103,12 @@ const SignUp = () => {
                                 onChange={({target: {value}}) => nameChangeHandler(value)}
                                 validators={['required', 'minStringLength: 3', 'maxStringLength: 20', 'trim']}
                                 errorMessages={['this field is required', 'minimum 3 character', 'maximum 20 character', 'the field cannot contain spaces']}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={<Checkbox onChange={e => isAdminChangeHandler(e.target.checked)} icon={<ThumbDownIcon />} checkedIcon={<ThumbUpIcon />} name="checkedH" />}
+                                label="isAdmin"
                             />
                         </Grid>
                     </Grid>
