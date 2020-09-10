@@ -4,12 +4,13 @@ import {
     MAP_START_LOAD,
     MAP_END_LOAD,
     MAP_CLEAR_MARKER,
-    MAP_CLEAR_ERROR, MAP_ADD_CENTER
+    MAP_CLEAR_ERROR, MAP_ADD_CENTER, ADMIN_GET_USERS
 } from "./actionTypes";
 import {createMarker, searchOnDate} from "../../services/MapService";
 import {logoutUser} from "./auth";
 import {history} from "../../helpers/history";
 import {PATH_HOME} from "../../routeList";
+import {getAllUsers} from "../../services/AdminService";
 
 export function getFilterMarker(parameters) {
     return (dispatch) => {
@@ -63,6 +64,32 @@ export function mapCreateMarker(parameters, centerMap) {
     }
 }
 
+export function takeAllUsers() {
+    return (dispatch) => {
+        dispatch(mapStartLoading());
+        try {
+            getAllUsers()
+                .then(({data})=> {
+                    dispatch(mapEndLoading());
+                    dispatch(addUsers(data));
+                })
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(mapError('INTERNAL ERROR'))
+                    }
+                });
+        } catch (e) {
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(mapError('INTERNAL ERROR'))
+            }
+        }
+    }
+}
+
 export function mapClearMarker() {
     return {
         type: MAP_CLEAR_MARKER
@@ -72,6 +99,13 @@ export function mapClearMarker() {
 export function mapClearError() {
     return {
         type: MAP_CLEAR_ERROR
+    }
+}
+
+function addUsers(users) {
+    return {
+        type: ADMIN_GET_USERS,
+        users
     }
 }
 

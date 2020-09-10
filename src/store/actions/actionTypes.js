@@ -13,3 +13,6 @@ export const AUTH_START_LOAD = "AUTH_START_LOAD";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_CLEAR_ERROR = "AUTH_CLEAR_ERROR";
+
+//ADMIN
+export const ADMIN_GET_USERS = "ADMIN_GET_USERS"

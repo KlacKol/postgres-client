@@ -4,18 +4,24 @@ import {
     MAP_START_LOAD,
     MAP_END_LOAD,
     MAP_CLEAR_MARKER,
-    MAP_CLEAR_ERROR, MAP_ADD_CENTER
+    MAP_CLEAR_ERROR, MAP_ADD_CENTER, ADMIN_GET_USERS
 } from "../actions/actionTypes";
 
 const initialState = {
     markers: [],
     loading: false,
     error: null,
-    mapLocation: null
+    mapLocation: null,
+    users: []
 };
 
 export default function mapReducer(state = initialState, action) {
     switch (action.type) {
+        case ADMIN_GET_USERS:
+            return {
+                ...state,
+                users: action.users
+            };
         case MAP_SUCCESS_GET:
             return {
                 ...state,

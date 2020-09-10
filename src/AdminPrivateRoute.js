@@ -4,7 +4,6 @@ import {shallowEqual, useSelector} from "react-redux";
 
 const AdminPrivateRoute = ({ component: RouteComponent, ...rest }) => {
     const user = useSelector(res => res.user, shallowEqual);
-    console.log(user)
     return (
         <Route
             {...rest}

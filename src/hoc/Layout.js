@@ -158,6 +158,10 @@ const Layout = ({children}) => {
                                 <ListItemIcon><AddIcon/></ListItemIcon>
                                 <ListItemText primary="Add new marker"/>
                             </ListItem>
+                            <ListItem button onClick={handleLogoutUser}>
+                                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                                <ListItemText primary="Logout"/>
+                            </ListItem>
                             {reduxData.user.isAdmin ? (
                                 <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_ADMIN_PANEL}>
                                     <ListItemIcon>
@@ -186,10 +190,6 @@ const Layout = ({children}) => {
                                     <ListItemText primary="Admin"/>
                                 </ListItem>
                             ) : null}
-                            <ListItem button onClick={handleLogoutUser}>
-                                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-                                <ListItemText primary="Logout"/>
-                            </ListItem>
                         </List>
                     </Drawer>
                 </>
