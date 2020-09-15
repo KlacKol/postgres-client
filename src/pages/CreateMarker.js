@@ -75,6 +75,7 @@ const CreateMarker = () => {
             direction="row"
             justify="space-between"
             alignItems="stretch"
+            className='page-add-marker'
         >
             <Grid item xs={6}>
                 <div className={classes.paper}>
@@ -159,6 +160,7 @@ const CreateMarker = () => {
                     zoom={10}
                     onClick={addMarker}
                     ref={mapRef}
+                    className='add-marker-map'
                 >
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

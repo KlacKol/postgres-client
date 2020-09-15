@@ -20,6 +20,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const mapRef = useRef();
     const [dateValue, setDateValue] = useState(mapFilter.date);
+    const [clickStart, setClickStart] = useState(false);
     const apiData = useSelector(res => res.map, shallowEqual);
     const storageUserId = getUserId();
 
@@ -58,27 +59,30 @@ const Home = () => {
     };
 
     const handlePlay = () => {
-        let i = dateValue[0];
+        if (!clickStart) {
+            let i = dateValue[0];
 
-        function f() {
-            timer = setTimeout(() => {
-                setDateValue([i, dateValue[1]]);
-                i++;
-                if (i < mapFilter.date[1]) {
-                    f();
-                }
-            }, 10, 0)
+            function f() {
+                timer = setTimeout(() => {
+                    setDateValue([i, dateValue[1]]);
+                    i++;
+                    if (i < mapFilter.date[1]) {
+                        f();
+                    }
+                }, 10, 0)
+            }
+            setClickStart(true);
+            f();
         }
-
-        f();
     };
 
     const handleStop = () => {
+        setClickStart(false);
         clearTimeout(timer);
     };
 
     return (
-        <>
+        <div className='home-page'>
             <Map
                 center={apiData.mapLocation || mapFilter.location}
                 zoom={10}
@@ -101,6 +105,7 @@ const Home = () => {
                                     {marker.description}
                                     {storageUserId && +storageUserId === marker.userId ? (
                                         <Button
+                                            className='button-delete-marker'
                                             onClick={() => handleDeleteMarker(marker.id)}
                                             color="secondary"
                                             size="small"
@@ -150,7 +155,7 @@ const Home = () => {
                     Search
                 </Button>
             </div>
-        </>
+        </div>
     )
 };
 

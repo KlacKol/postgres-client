@@ -54,7 +54,7 @@ const SignIn = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container className='page-login' component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>

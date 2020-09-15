@@ -125,6 +125,7 @@ const Layout = ({children}) => {
                                 aria-label="open drawer"
                                 onClick={handleDrawerOpen}
                                 edge="start"
+                                name='toggle-menu'
                                 className={clsx(classes.menuButton, open && classes.hide)}
                             >
                                 <MenuIcon/>
@@ -150,20 +151,20 @@ const Layout = ({children}) => {
                         </div>
                         <Divider/>
                         <List>
-                            <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_HOME}>
+                            <ListItem button name='menu-page-home' component={Link} onClick={handleDrawerClose} to={PATH_HOME}>
                                 <ListItemIcon><HomeIcon/></ListItemIcon>
                                 <ListItemText primary="Home"/>
                             </ListItem>
-                            <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_ADD_MARKER}>
+                            <ListItem button name='menu-page-add-marker' component={Link} onClick={handleDrawerClose} to={PATH_ADD_MARKER}>
                                 <ListItemIcon><AddIcon/></ListItemIcon>
                                 <ListItemText primary="Add new marker"/>
                             </ListItem>
-                            <ListItem button onClick={handleLogoutUser}>
+                            <ListItem name='menu-page-logout' button onClick={handleLogoutUser}>
                                 <ListItemIcon><ExitToAppIcon/></ListItemIcon>
                                 <ListItemText primary="Logout"/>
                             </ListItem>
                             {reduxData.user.isAdmin ? (
-                                <ListItem button component={Link} onClick={handleDrawerClose} to={PATH_ADMIN_PANEL}>
+                                <ListItem name='menu-page-admin' button component={Link} onClick={handleDrawerClose} to={PATH_ADMIN_PANEL}>
                                     <ListItemIcon>
                                         <SvgIcon viewBox={'0 0 24 24'}>
                                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

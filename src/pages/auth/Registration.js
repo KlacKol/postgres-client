@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Avatar, Button, Grid, Typography, Container, FormControlLabel, Checkbox} from '@material-ui/core';
+import {Avatar, Button, Grid, Typography, Container, FormControlLabel, Checkbox, Input} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -50,7 +50,7 @@ const SignUp = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container className='page-registration' component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -106,8 +106,11 @@ const SignUp = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
+                            <Input type='file' />
+                        </Grid>
+                        <Grid item xs={12}>
                             <FormControlLabel
-                                control={<Checkbox onChange={e => isAdminChangeHandler(e.target.checked)} icon={<ThumbDownIcon />} checkedIcon={<ThumbUpIcon />} name="checkedH" />}
+                                control={<Checkbox onChange={e => isAdminChangeHandler(e.target.checked)} icon={<ThumbDownIcon />} checkedIcon={<ThumbUpIcon />} name="checkedIsAdmin" />}
                                 label="isAdmin"
                             />
                         </Grid>

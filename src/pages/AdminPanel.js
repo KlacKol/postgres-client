@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {
-    Button,
     List,
     ListItem,
     ListItemAvatar,
@@ -47,7 +46,7 @@ const AdminPanel = () => {
                         />
                         <ListItemSecondaryAction>
 
-                            <IconButton edge="end" aria-label="delete" onClick={() => removeUser(user.email)}>
+                            <IconButton name={user.name} edge="end" aria-label="delete" onClick={() => removeUser(user.email)}>
                                 <DeleteIcon/>
                             </IconButton>
                         </ListItemSecondaryAction>
