@@ -5,10 +5,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from "@material-ui/core/Button";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+
 import {getFilterMarker, mapClearMarker} from '../store/actions/map';
 import {getUserId} from "../services/LocalStorageService";
 import {deleteMarker} from "../services/MapService";
-import MarkerClusterGroup from "react-leaflet-markercluster";
 
 
 const mapFilter = {
@@ -23,6 +24,7 @@ const Home = () => {
     const [clickStart, setClickStart] = useState(false);
     const apiData = useSelector(res => res.map, shallowEqual);
     const storageUserId = getUserId();
+
 
     useEffect(() => {
         handleChangeViewPort();
@@ -39,6 +41,7 @@ const Home = () => {
     };
 
     const handleChangeViewPort = () => {
+        console.log(apiData)
         const bounds = mapRef.current.leafletElement.getBounds();
         const zoom = mapRef.current.leafletElement.getZoom();
         if (zoom > 3) {
@@ -98,7 +101,7 @@ const Home = () => {
                     showCoverageOnHover={false}
                     maxClusterRadius={200}
                 >
-                    {apiData.markers.data && apiData.markers.data.map(marker => (
+                    {apiData.markers && apiData.markers.map(marker => (
                         <Marker position={[marker.lat, marker.lng]} key={marker.id + marker.lat}>
                             <Popup>
                                 <div className="marker-map">

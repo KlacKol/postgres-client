@@ -5,10 +5,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import {makeStyles} from '@material-ui/core/styles';
+import {DropzoneArea} from 'material-ui-dropzone'
 import {NavLink} from 'react-router-dom';
+import {useDispatch} from "react-redux";
+
 import {PATH_AUTH_LOGIN} from "../../routeList";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {useDispatch} from "react-redux";
 import {regUser} from "../../store/actions/auth";
 
 
@@ -38,13 +40,13 @@ const SignUp = () => {
     const [name, nameChangeHandler] = useState('');
     const [email, emailChangeHandler] = useState('');
     const [password, passwordChangeHandler] = useState('');
+    const [avatar, avatarChangeHandler] = useState(null);
     const [isAdmin, isAdminChangeHandler] = useState(false);
     const dispatch = useDispatch();
 
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        console.log(isAdmin)
         const result = {name, email, password, isAdmin};
         dispatch(regUser(result));
     };
@@ -106,7 +108,11 @@ const SignUp = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Input type='file' />
+                            <h1>Avatar</h1>
+                            <DropzoneArea
+                                filesLimit={1}
+                                onChange={file => avatarChangeHandler(file)}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel

@@ -30,14 +30,14 @@ export function logUser(parameters) {
                     if (e.response) {
                         helperError(dispatch, e)
                     } else {
-                        dispatch(userError('INTERNAL ERROR'))
+                        dispatch(userError('INTERNAL ERROR' + e))
                     }
                 })
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
             } else {
-                dispatch(userError('INTERNAL ERROR'))
+                dispatch(userError('INTERNAL ERROR' + e))
             }
         }
     }
@@ -60,14 +60,14 @@ export function regUser(parameters) {
                     if (e.response) {
                         helperError(dispatch, e)
                     } else {
-                        dispatch(userError('INTERNAL ERROR'))
+                        dispatch(userError('INTERNAL ERROR' + e))
                     }
                 })
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
             } else {
-                dispatch(userError('INTERNAL ERROR'))
+                dispatch(userError('INTERNAL ERROR' + e))
             }
         }
     }
@@ -89,7 +89,11 @@ export function logoutUser() {
                 })
                 .catch(e => helperError(dispatch, e))
         } catch (e) {
-            helperError(dispatch, e)
+            if (e.response) {
+                helperError(dispatch, e)
+            } else {
+                dispatch(userError('INTERNAL ERROR' + e))
+            }
         }
     }
 }

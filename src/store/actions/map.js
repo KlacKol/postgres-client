@@ -11,27 +11,36 @@ import {logoutUser} from "./auth";
 import {history} from "../../helpers/history";
 import {PATH_HOME} from "../../routeList";
 import {getAllUsers} from "../../services/AdminService";
+import {socket} from '../../services/socketService';
 
 export function getFilterMarker(parameters) {
     return (dispatch) => {
         dispatch(mapStartLoading());
         try {
-            searchOnDate(parameters)
-                .then(data => {
-                    dispatch(mapsSuccessGet(data));
-                })
-                .catch(e => {
-                    if (e.response) {
-                        helperError(dispatch, e)
-                    } else {
-                        dispatch(mapError('INTERNAL ERROR'))
-                    }
-                });
+            searchOnDate(parameters);
+            socket.on('connect', () => {
+                console.log(socket.connected);
+            })
+            socket.emit('param', parameters);
+            socket.on('get_data', data => {
+                console.log(data)
+                dispatch(mapsSuccessGet(data));
+            })
+            // searchOnDate(parameters)
+            //     .then(_ => {
+            //     })
+            //     .catch(e => {
+            //         if (e.response) {
+            //             helperError(dispatch, e)
+            //         } else {
+            //             dispatch(mapError('INTERNAL ERROR'))
+            //         }
+            //     });
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
             } else {
-                dispatch(mapError('INTERNAL ERROR'))
+                dispatch(mapError('INTERNAL ERROR' + e))
             }
         }
     }
@@ -51,14 +60,14 @@ export function mapCreateMarker(parameters, centerMap) {
                     if (e.response) {
                         helperError(dispatch, e)
                     } else {
-                        dispatch(mapError('INTERNAL ERROR'))
+                        dispatch(mapError('INTERNAL ERROR' + e))
                     }
                 });
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
             } else {
-                dispatch(mapError('INTERNAL ERROR'))
+                dispatch(mapError('INTERNAL ERROR' + e))
             }
         }
     }
@@ -77,14 +86,14 @@ export function takeAllUsers() {
                     if (e.response) {
                         helperError(dispatch, e)
                     } else {
-                        dispatch(mapError('INTERNAL ERROR'))
+                        dispatch(mapError('INTERNAL ERROR' + e))
                     }
                 });
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
             } else {
-                dispatch(mapError('INTERNAL ERROR'))
+                dispatch(mapError('INTERNAL ERROR' + e))
             }
         }
     }

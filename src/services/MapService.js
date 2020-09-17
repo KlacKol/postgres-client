@@ -2,6 +2,7 @@ import axios from 'axios';
 import {getRefreshToken, getToken, setRefreshToken, setToken} from "./LocalStorageService";
 import jwtDecode from "jwt-decode";
 import {updateTokens} from "./AuthService";
+import socketIOClient from "socket.io-client";
 
 const api = process.env.REACT_APP_APP_API_URL + '/map';
 
