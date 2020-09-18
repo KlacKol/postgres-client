@@ -41,7 +41,6 @@ const Home = () => {
     };
 
     const handleChangeViewPort = () => {
-        console.log(apiData)
         const bounds = mapRef.current.leafletElement.getBounds();
         const zoom = mapRef.current.leafletElement.getZoom();
         if (zoom > 3) {
@@ -101,7 +100,7 @@ const Home = () => {
                     showCoverageOnHover={false}
                     maxClusterRadius={200}
                 >
-                    {apiData.markers && apiData.markers.map(marker => (
+                    {apiData.markers.data && apiData.markers.data.map(marker => (
                         <Marker position={[marker.lat, marker.lng]} key={marker.id + marker.lat}>
                             <Popup>
                                 <div className="marker-map">

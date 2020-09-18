@@ -17,25 +17,22 @@ export function getFilterMarker(parameters) {
     return (dispatch) => {
         dispatch(mapStartLoading());
         try {
-            searchOnDate(parameters);
-            socket.on('connect', () => {
-                console.log(socket.connected);
-            })
-            socket.emit('param', parameters);
-            socket.on('get_data', data => {
-                console.log(data)
-                dispatch(mapsSuccessGet(data));
-            })
-            // searchOnDate(parameters)
-            //     .then(_ => {
-            //     })
-            //     .catch(e => {
-            //         if (e.response) {
-            //             helperError(dispatch, e)
-            //         } else {
-            //             dispatch(mapError('INTERNAL ERROR'))
-            //         }
-            //     });
+            // searchOnDate(parameters);
+            // socket.emit('param', parameters);
+            // socket.off('get_data').on('get_data', data => {
+            //     dispatch(mapsSuccessGet(data));
+            // })
+            searchOnDate(parameters)
+                .then(data => {
+                    dispatch(mapsSuccessGet(data));
+                })
+                .catch(e => {
+                    if (e.response) {
+                        helperError(dispatch, e)
+                    } else {
+                        dispatch(mapError('INTERNAL ERROR' + e))
+                    }
+                });
         } catch (e) {
             if (e.response) {
                 helperError(dispatch, e)
