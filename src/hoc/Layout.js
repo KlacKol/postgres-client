@@ -12,8 +12,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import FaceIcon from '@material-ui/icons/Face';
 
-import {PATH_ADD_MARKER, PATH_ADMIN_PANEL, PATH_HOME} from "../routeList";
+import {PATH_ADD_MARKER, PATH_ADMIN_PANEL, PATH_HOME, PATH_PROFILE_PAGE} from "../routeList";
 import {authClearError, logoutUser} from "../store/actions/auth";
 import {mapClearError} from "../store/actions/map";
 
@@ -158,6 +159,10 @@ const Layout = ({children}) => {
                             <ListItem button name='menu-page-add-marker' component={Link} onClick={handleDrawerClose} to={PATH_ADD_MARKER}>
                                 <ListItemIcon><AddIcon/></ListItemIcon>
                                 <ListItemText primary="Add new marker"/>
+                            </ListItem>
+                            <ListItem button name='menu-page-profile' component={Link} onClick={handleDrawerClose} to={PATH_PROFILE_PAGE}>
+                                <ListItemIcon><FaceIcon/></ListItemIcon>
+                                <ListItemText primary="Profile"/>
                             </ListItem>
                             <ListItem name='menu-page-logout' button onClick={handleLogoutUser}>
                                 <ListItemIcon><ExitToAppIcon/></ListItemIcon>

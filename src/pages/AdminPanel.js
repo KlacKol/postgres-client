@@ -15,11 +15,14 @@ import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
 import {takeAllUsers} from "../store/actions/map";
 import {deleteUser} from "../services/AdminService";
+import {getAvatar} from "../services/LocalStorageService";
+import {getUrlAvatar} from "../services/AuthService";
 
 const AdminPanel = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(res => res.map.users, shallowEqual);
+    const avatar = getUrlAvatar();
 
     useEffect(() => {
         dispatch(takeAllUsers());
@@ -36,9 +39,7 @@ const AdminPanel = () => {
                 <List key={user.email + user.name}>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar>
-                                {user.isAdmin ? <RedditIcon/> : <PersonIcon/>}
-                            </Avatar>
+                            <Avatar src={avatar}/>
                         </ListItemAvatar>
                         <ListItemText
                             primary={user.name}

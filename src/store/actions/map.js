@@ -20,6 +20,7 @@ export function getFilterMarker(parameters) {
             // searchOnDate(parameters);
             // socket.emit('param', parameters);
             // socket.off('get_data').on('get_data', data => {
+            //     console.log(data);
             //     dispatch(mapsSuccessGet(data));
             // })
             searchOnDate(parameters)

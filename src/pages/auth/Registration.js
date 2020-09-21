@@ -40,14 +40,18 @@ const SignUp = () => {
     const [name, nameChangeHandler] = useState('');
     const [email, emailChangeHandler] = useState('');
     const [password, passwordChangeHandler] = useState('');
-    const [avatar, avatarChangeHandler] = useState(null);
+    const [image, imageChangeHandler] = useState(null);
     const [isAdmin, isAdminChangeHandler] = useState(false);
     const dispatch = useDispatch();
 
-
     const handlerSubmit = (e) => {
         e.preventDefault();
-        const result = {name, email, password, isAdmin};
+        const result = new FormData();
+        result.append('avatar', image);
+        result.append('name', name);
+        result.append('email', email);
+        result.append('password', password);
+        result.append('isAdmin', isAdmin);
         dispatch(regUser(result));
     };
 
@@ -109,9 +113,12 @@ const SignUp = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <h1>Avatar</h1>
+                            {/*<Input type='file' onChange={file => imageChangeHandler(file.target.files[0])} />*/}
                             <DropzoneArea
+                                name="avatar"
                                 filesLimit={1}
-                                onChange={file => avatarChangeHandler(file)}
+                                acceptedFiles={['image/jpeg', 'image/png']}
+                                onChange={file => imageChangeHandler(file[0])}
                             />
                         </Grid>
                         <Grid item xs={12}>

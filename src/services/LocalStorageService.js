@@ -47,5 +47,18 @@ export const clearIsAdmin = () => {
     localStorage.removeItem('is_admin');
 };
 
+export const setAvatar = (val) => {
+    localStorage.setItem('user_avatar', val);
+};
+
+export const getAvatar = () => {
+    return  localStorage.getItem('user_avatar');
+};
+
+export const clearAvatar = () => {
+    localStorage.removeItem('user_avatar');
+};
+
+
 
 

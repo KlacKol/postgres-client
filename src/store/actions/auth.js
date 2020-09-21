@@ -1,10 +1,11 @@
 import {AUTH_ERROR, AUTH_SUCCESS, AUTH_START_LOAD, AUTH_LOGOUT, AUTH_CLEAR_ERROR} from "./actionTypes";
 import {deleteRefreshToken, loginUser, registerUser} from "../../services/AuthService";
 import {
+    clearAvatar,
     clearIsAdmin,
     clearRefreshToken,
     clearToken, clearUserId,
-    getToken, setIsAdmin,
+    getToken, setAvatar, setIsAdmin,
     setRefreshToken,
     setToken,
     setUserId
@@ -19,10 +20,11 @@ export function logUser(parameters) {
             dispatch(userStartLoading());
             loginUser(parameters)
                 .then(({data}) => {
-                    setIsAdmin(data.isAdmin)
+                    setIsAdmin(data.isAdmin);
                     setUserId(data.userId);
                     setToken(data.token);
                     setRefreshToken(data.refreshToken);
+                    setAvatar(data.avatar);
                     dispatch(authSuccess(data.token, data.isAdmin));
                     history.push(PATH_HOME)
                 })
@@ -49,10 +51,11 @@ export function regUser(parameters) {
             dispatch(userStartLoading());
             registerUser(parameters)
                 .then(({data}) => {
-                    setIsAdmin(data.isAdmin)
+                    setIsAdmin(data.isAdmin);
                     setUserId(data.userId);
                     setToken(data.token);
                     setRefreshToken(data.refreshToken);
+                    setAvatar(data.avatar);
                     dispatch(authSuccess(data.token, data.isAdmin));
                     history.push(PATH_HOME)
                 })
@@ -84,6 +87,7 @@ export function logoutUser() {
                     clearUserId();
                     clearToken();
                     clearRefreshToken();
+                    clearAvatar();
                     dispatch(logout());
                     history.push(PATH_AUTH_LOGIN)
                 })
