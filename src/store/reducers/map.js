@@ -4,7 +4,7 @@ import {
     MAP_START_LOAD,
     MAP_END_LOAD,
     MAP_CLEAR_MARKER,
-    MAP_CLEAR_ERROR, MAP_ADD_CENTER, ADMIN_GET_USERS
+    MAP_CLEAR_ERROR, MAP_ADD_CENTER, ADMIN_GET_USERS, MAP_DELETE_MARKER, ADMIN_DELETE_USER
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,7 +21,17 @@ export default function mapReducer(state = initialState, action) {
             return {
                 ...state,
                 users: action.users
-            };
+            }
+        case ADMIN_DELETE_USER:
+            return {
+                ...state,
+                users: state.users.filter(user => user.id !== action.id)
+            }
+        case MAP_DELETE_MARKER:
+            return  {
+                ...state,
+                markers: state.markers.filter(marker => marker.id !== action.id)
+            }
         case MAP_SUCCESS_GET:
             return {
                 ...state,

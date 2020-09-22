@@ -6,6 +6,7 @@ export const MAP_END_LOAD = "MAP_END_LOAD";
 export const MAP_CLEAR_MARKER = "MAP_CLEAR_MARKER";
 export const MAP_CLEAR_ERROR = "MAP_CLEAR_ERROR";
 export const MAP_ADD_CENTER = "MAP_ADD_CENTER";
+export const MAP_DELETE_MARKER = "MAP_DELETE_MARKER";
 
 //AUTH
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
@@ -16,3 +17,4 @@ export const AUTH_CLEAR_ERROR = "AUTH_CLEAR_ERROR";
 
 //ADMIN
 export const ADMIN_GET_USERS = "ADMIN_GET_USERS"
+export const ADMIN_DELETE_USER = "ADMIN_DELETE_USER";

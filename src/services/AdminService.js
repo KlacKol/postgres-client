@@ -9,8 +9,8 @@ export const getAllUsers = async () => {
     return await helper(null, 'users', 'get')
 };
 
-export const deleteUser = async (email) => {
-    return await helper(null, 'users', 'delete', email)
+export const deleteUser = async (id) => {
+    return await helper(null, 'users', 'delete', id)
 };
 
 export const takeAdmin = async (id, premiss) => {

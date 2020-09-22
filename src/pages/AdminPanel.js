@@ -8,29 +8,24 @@ import {
     Avatar,
     IconButton
 } from "@material-ui/core";
-import RedditIcon from '@material-ui/icons/Reddit';
-import PersonIcon from '@material-ui/icons/Person';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
-import {takeAllUsers} from "../store/actions/map";
-import {deleteUser} from "../services/AdminService";
-import {getAvatar} from "../services/LocalStorageService";
-import {getUrlAvatar} from "../services/AuthService";
+import {removeUserInAdminPanel, takeAllUsers} from "../store/actions/map";
+import {getUserId} from "../services/LocalStorageService";
 
 const AdminPanel = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(res => res.map.users, shallowEqual);
-    const avatar = getUrlAvatar();
-
+    const url = process.env.REACT_APP_APP_API_URL + '/uploads/';
+    const userId = +getUserId();
     useEffect(() => {
         dispatch(takeAllUsers());
     }, [])
 
-    const removeUser = async (email) => {
-        await deleteUser(email);
-        dispatch(takeAllUsers());
+    const removeUser = (id) => {
+        dispatch(removeUserInAdminPanel(id));
     }
 
     return (
@@ -39,18 +34,19 @@ const AdminPanel = () => {
                 <List key={user.email + user.name}>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar src={avatar}/>
+                            <Avatar src={url + user.avatar}/>
                         </ListItemAvatar>
                         <ListItemText
                             primary={user.name}
                             secondary={user.email}
                         />
-                        <ListItemSecondaryAction>
-
-                            <IconButton name={user.name} edge="end" aria-label="delete" onClick={() => removeUser(user.email)}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </ListItemSecondaryAction>
+                        {user.id !== userId ? (
+                            <ListItemSecondaryAction>
+                                <IconButton name={user.name} edge="end" aria-label="delete" onClick={() => removeUser(user.id)}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        ) : null}
                     </ListItem>
                 </List>
             ))}

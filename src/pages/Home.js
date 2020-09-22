@@ -7,9 +7,8 @@ import Slider from '@material-ui/core/Slider';
 import Button from "@material-ui/core/Button";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 
-import {getFilterMarker, mapClearMarker} from '../store/actions/map';
+import {getFilterMarker, mapClearMarker, mapDeleteMarkerById} from '../store/actions/map';
 import {getUserId} from "../services/LocalStorageService";
-import {deleteMarker} from "../services/MapService";
 
 
 const mapFilter = {
@@ -55,9 +54,8 @@ const Home = () => {
         }
     };
 
-    const handleDeleteMarker = async (id) => {
-        await deleteMarker(id);
-        await handleChangeViewPort();
+    const handleDeleteMarker = (id) => {
+        dispatch(mapDeleteMarkerById(id))
     };
 
     const handlePlay = () => {
@@ -100,7 +98,7 @@ const Home = () => {
                     showCoverageOnHover={false}
                     maxClusterRadius={200}
                 >
-                    {apiData.markers.data && apiData.markers.data.map(marker => (
+                    {apiData.markers && apiData.markers.map(marker => (
                         <Marker position={[marker.lat, marker.lng]} key={marker.id + marker.lat}>
                             <Popup>
                                 <div className="marker-map">

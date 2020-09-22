@@ -40,3 +40,18 @@
 .cls-2 {
   fill:#c0402b
 }
+
+/*PROFILE PAGE*/
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10vh;
+}
+
+.profile-header .profile-avatar {
+  width: 300px;
+  height: 300px;
+  margin: 5vh;
+}
